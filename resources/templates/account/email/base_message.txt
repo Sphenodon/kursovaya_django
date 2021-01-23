@@ -1,0 +1,7 @@
+{% autoescape off %}Здравствуйте, {{ user.username }}!
+
+{% block content %}{% endblock %}
+
+Спасибо за регистрацию на {{ current_site.name }}!
+{{ current_site.domain }}
+{% endautoescape %}

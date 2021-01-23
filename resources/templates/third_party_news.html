@@ -1,0 +1,22 @@
+{% extends "parts/commonPart.html" %}
+{% block head_title %}{{ title }}{% endblock %}
+{% block content %}
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for i in queryset %}
+            <div class="col mb-4">
+                <div class="card h-100">
+                    <img src="{{ i.img_link }}" class="card-img-top" alt="News">
+                    <div class="card-footer">
+                        <small class="text-muted">{{ i.timestamp.date }}</small>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="{{ i.get_detail_url }}"
+                                                  class="text-dark stretched-link text-decoration-none">{{ i.title }}</a>
+                        </h5>
+                        <p class="card-text">{{ i.content|truncatechars:127 }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

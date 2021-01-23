@@ -1,0 +1,9 @@
+.navbar-nav {
+    text-align: center;
+    width: 800px;
+}
+
+.dropdown-menu li > a:hover, .dropdown-menu li > a:focus, .dropdown-submenu:hover > a {
+    background-color: #efefef;
+}
+

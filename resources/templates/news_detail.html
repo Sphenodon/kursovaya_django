@@ -1,0 +1,55 @@
+{% extends "parts/commonPart.html" %}
+{% block head_title %}{{ title }}{% endblock %}
+{% block content %}
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">{{ instance.title }}</h5>
+        </div>
+        <div class="card-body">
+            <blockquote class="blockquote mb-0">
+                <p style="white-space: pre-line">{{ instance.content }}</p>
+                <footer class="blockquote-footer">{{ instance.news_author }} | {{ instance.timestamp.date }}<cite title="Source Title"></cite>
+                </footer>
+            </blockquote>
+            <br>
+            {% if instance.news_link %}
+                <a href="{{ instance.news_link }}" class="btn btn-dark" type="">Перейти на igromania</a>
+            {% endif %}
+            {% if instance.news_author == user.username or user.is_superuser %}
+                <a href="{{ instance.get_update_url }}" class="btn btn-dark" type="submit">Редактировать</a>
+                <a class="btn btn-dark" href="{{ instance.get_delete_url }}" type="submit">Удалить</a>
+            {% endif %}
+        </div>
+    </div>
+    {% if user.is_authenticated %}
+        <div class="card mt-3">
+            <div class="mb-3">
+                <div class="card-header">
+                    <h5 class="mb-0">Оставить комментарий</h5>
+                </div>
+                <form method="POST" action=""> {% csrf_token %}
+                    <label for="exampleFormControlTextarea1"></label><textarea class="form-control"
+                                                                               id="exampleFormControlTextarea1" rows="3"
+                                                                               name="content"></textarea>
+                <input class="btn btn-dark mt-3 ml-3" type="submit" value="Опубликовать" name="">
+                </form>
+            </div>
+        </div>
+    {% else %}
+        <div class="card mt-3">
+            <div class="card-header">
+                <p class="mb-0">Комментарии могут оставлять только авторизованные пользователи</p>
+            </div>
+        </div>
+    {% endif %}
+    <div class="card mt-3">
+        {% for i in comments %}
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                    <p>{{ i.comment_text }}</p>
+                    <footer class="blockquote-footer">{{ i.comment_author }}</footer>
+                </blockquote>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

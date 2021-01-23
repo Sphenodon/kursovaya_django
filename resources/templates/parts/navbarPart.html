@@ -1,0 +1,70 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-center" style="padding-right: 25%; padding-left: 25%">
+    <a class="navbar-brand" href="/">News</a>
+    <button class="navbar-toggler mr-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul class="navbar-nav justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="/">Новости</a>
+            </li>
+            {% if user.is_staff %}
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/create/">Написать новость</a>
+                </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link text-white" href="/thirdPartyNews/">Новости партнеров</a>
+            </li>
+            {% if user.is_staff %}
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/myNews/">Мои новости</a>
+                </li>
+            {% endif %}
+            {% if user.is_superuser %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Агрегирование
+                    </a>
+                    <ul class="dropdown-menu mt-2" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="/startGen/">Агрегировать новости партнеров</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="/stopGen/">Остановить агрегирование новостей партнеров</a></li>
+                    </ul>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+
+
+    {% if user.is_authenticated %}
+        <ul class="nav">
+            <li class="dropdown">
+                <a class="nav-link dropdown-toggle btn btn-outline-light" data-bs-toggle="dropdown" href="#" role="button"
+                   aria-expanded="false">{{ user.username }}</a>
+                <ul class="dropdown-menu mt-2 position-absolute">
+                    <li><a class="dropdown-item text-dark" href="/accounts/email/">Профиль</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a href="{% url 'account_logout' %}" class="dropdown-item text-dark link-dark">Выйти</a></li>
+                </ul>
+            </li>
+        </ul>
+    {% endif %}
+
+    {% if not user.is_authenticated %}
+        <div class="">
+            <a href="{% url 'account_login' %}" class="btn btn-dark">Войти</a>
+        </div>
+        <div class="">
+            <a href="{% url 'account_signup' %}" class="btn btn-dark">Регистрация</a>
+        </div>
+    {% endif %}
+
+</nav>

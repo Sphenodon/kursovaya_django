@@ -1,0 +1,6 @@
+{% extends "account/email/base_message.txt" %}
+{% load account %}
+
+{% block content %}{% autoescape off %}{% user_display user as user_display %}Вы получили данное письмо, так как хотите зарегестрироваться на {{ current_site.domain }}.
+
+Для подтверждения, перейдите по ссылке: {{ activate_url }}{% endautoescape %}{% endblock %}

@@ -1,0 +1,1 @@
+News site with the ability to aggregate news from partner sites
